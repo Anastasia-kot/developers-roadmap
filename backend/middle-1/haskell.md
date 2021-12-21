@@ -121,15 +121,44 @@ How can we bundle Pattern Synonyms with datatypes in export and import lists?
 
 ## Laziness
 
-* How is value from evaluated thunk stored (are we allowed to avoid redundant reevaluations)?
+* How is a value in an evaluated thunk stored (are we allowed to avoid redundant reevaluations)?
 * Enumerate cases where thunk with ADT will be evaluated.
-* What is the irrefutable pattern and how does it work?
-* What does the `sprint` function do?
+* What is an irrefutable pattern and how does it work?
+* Where are patterns in Haskell irrefutable by default?
+* Which patterns are irrefutable:
+  1. `f (Just a) = ...`
+  1. `f ~(Just a) = ...`
+  1. `f !(Just a) = ...`
+  1. `f !(Just !a) = ...`
+  1. `f (Just (Just a)) = ...`
+  1. `let (Just a) = ...`
+  1. `let ~(Just a) = ...`
+  1. `let !(Just a) = ...`
+  1. `let (Just !a) = ...`
+  1. `let (Just (Just a)) = ...`
+  1. `where (Just a) = ...`
+  1. `where ~(Just a) = ...`
+  1. `where !(Just a) = ...`
+  1. `where (Just !a) = ...`
+  1. `where (Just (Just a)) = ...`
+  1. `g a = ...`
+  1. `g _ = ...`
+  1. `g (MyType a) = ...` where `MyType` is a `newtype` declaration.
+  1. `g (MyType a) = ...` where `MyType` is a `data` declaration.
+  1. `g = ...`
+* When can irrefutable patterns be helpful? Hint: you may describe why
+  [`Data.List.parition`](https://hackage.haskell.org/package/base-4.16.0.0/docs/src/Data.OldList.html#partition)
+  uses them.
+* What does the `sprint` command do in `ghci`?
 
 #### Resources
 
 * [Laziness from What I Wish I Knew When Learning Haskell](http://dev.stephendiehl.com/hask/#laziness)
 * [The GHC Runtime System - Ch. 4 Laziness](http://ezyang.com/jfp-ghc-rts-draft.pdf)
+* Haskell 2010 Language Report:
+  * [3.17.2 Informal Semantics of Pattern Matching](https://www.haskell.org/onlinereport/haskell2010/haskellch3.html#x8-580003.17)
+  * [Irrefutable Patterns in Let Expressions](https://www.haskell.org/onlinereport/haskell2010/haskellch3.html#x8-440003.12)
+  * [4.4.3.2 Pattern bindings](https://www.haskell.org/onlinereport/haskell2010/haskellch4.html#x10-800004.4)
 
 ## Exceptions
 
